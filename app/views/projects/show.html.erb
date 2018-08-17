@@ -1,0 +1,121 @@
+<div class="container">
+
+
+
+
+      <h1><%= @project.title %></h1>
+      <h3><%= @project.description %></h3>
+
+        <%= link_to 'back' ,projects_url %>
+
+        <% if policy(@project).update? %>
+            <%= link_to 'edit' , edit_project_url(@project) %>
+        <% end %>
+
+<% unless @project_bugs.nil? %>
+
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Deadline</th>
+          <th scope="col">Screenshot</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+
+        </tr>
+      </thead>
+
+      <tbody>
+      <h1>Bugs </h1>
+       <% @project_bugs.each do |bug| %>
+        <tr>
+          <th scope="row"><%= bug.title%></th>
+          <td ><%= bug.types %></td>
+          <td><%= bug.status %></td>
+          <td><%= bug.deadline %></td>
+          <td>
+              <% unless bug.screenshot.file.nil? %>
+              <%= image_tag bug.screenshot_url(:small)  %>
+              <%end %>
+          </td>
+
+          <td>
+            <button class="btn btn-defualt">
+                      <%= link_to 'show' , bug_url(bug) %>
+            </button>
+          </td>
+          <td>
+          <% if policy(bug).update? %>
+            <button class="btn btn-defualt">
+                      <%= link_to 'edit' , edit_bug_url(bug) %>
+            </button>
+        <% end %>
+
+          </td>
+
+          <td >
+              <% if policy(bug).assign_bug? %>
+                  <% if(current_user.id!=bug.developer_id) %>
+                        <button class='button_bug', id = <%= bug.id %> >  <%= 'Assign Bug'%></button>
+                      <%end %>
+              <%end%>
+          </td>
+
+          <td >
+              <% if policy(bug).assign_bug? %>
+                  <% if(current_user.id==bug.developer_id && bug.status!='completed') %>
+                        <% if(bug.status!='resolved')  %>
+                        <button class='mark_bug', id = <%= bug.id %> >  <%= 'Mark Bug'%></button>
+                         <%end%>
+                      <%end %>
+              <%end%>
+          </td>
+
+        </tr>
+       <% end %>
+      </tbody>
+ </table>
+<% end %>
+
+    <% if policy(@project_bugs).create? %>
+
+  <%= link_to 'Add Bug' , new_bug_url(:bug => { :project_id => @project.id ,
+    :user_id => current_user.id}) %>
+    <% end %>
+
+
+
+<% if policy(@project).create? %>
+
+<h1>Project Users</h1>
+<% unless @project_users.nil? %>
+
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+
+      <tbody>
+       <% @project_users.each do |user| %>
+        <tr>
+          <th scope="row"><%= user.name%></th>
+          <td><%= user.user_type %></td>
+          <td><%= user.email %></td>
+        </tr>
+       <% end %>
+      </tbody>
+ </table>
+<% end %>
+
+<%end%>
+</div>

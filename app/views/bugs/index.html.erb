@@ -1,0 +1,24 @@
+<h1>Bugs#index</h1>
+<p>Find me in app/views/bugs/index.html.erb</p>
+
+<% @bugs.each do |bug|%>
+
+<h3> Title:</h3>
+<%= bug.title%>
+<h3> Deadline:</h3>
+<%= bug.deadline.to_s %>
+<h3> Type:</h3>
+<%= bug.types%>
+<h3> Status:</h3>
+<%= bug.status%>
+
+
+<% unless bug.screenshot.file.nil? %>
+<%= image_tag bug.screenshot_url(:thumb)  %>
+
+<%end%>
+<%= link_to 'show' , bug_url(bug) %>
+<%= link_to 'edit' , edit_bug_url(bug) %>
+<%= link_to 'delete' , bug, method: :delete, data: { confirm: 'Are you sure?' }  %>
+<hr>
+<%end%>

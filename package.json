@@ -1,0 +1,7 @@
+{
+  "name": "BTS",
+  "private": true,
+  "dependencies": {
+    "handsontable": "^4.0.0"
+  }
+}

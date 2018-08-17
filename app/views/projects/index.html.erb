@@ -1,0 +1,63 @@
+
+<div class="container">
+
+
+  <div class="jumbotron">
+    <h1> Projects </h1>
+  </div>
+        <% if policy(@projects).create? %>
+
+       <button class="btn btn-defualt">
+          <%= link_to 'Create New Project' , new_project_url %>
+       </button>
+       <% end %>
+
+<%= will_paginate @projects, previous_label: h("<"), next_label: h(">") %>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+  <% policy_scope(@projects).each do |project| %>
+    <tr>
+      <th scope="row"><%=project.title %></th>
+      <td><%= project.description %></td>
+      <td>
+        <button class="btn btn-defualt">
+                  <%= link_to 'show' , project_url(project) %>
+        </button>
+      </td>
+      <td>
+        <% if policy(project).update? %>
+
+        <button class="btn btn-defualt">
+                  <%= link_to 'edit' , edit_project_url(project)%>
+        </button>
+        <%end%>
+      </td>
+
+      <td>
+        <% if policy(project).destroy? %>
+
+        <button class="btn btn-defualt">
+                  <%= link_to 'delete' , project_url(project), method: :delete,data:{confirm:'Are you sure?'}%>
+        </button>
+        <%end%>
+      </td>
+    </tr>
+   <% end %>
+  </tbody>
+</table>
+
+
+
+<div id="example"></div>
+</div>

@@ -1,0 +1,20 @@
+<div class='container'>
+
+<h1>Bugs</h1>
+
+<h2> Title:</h2>
+<%= @bug.title%>
+<h2> Deadline:</h2>
+<%= @bug.deadline.to_s %>
+<h2> Type:</h2>
+<%= @bug.types%>
+<h2> Status:</h2>
+<%= @bug.status%>
+
+<br/>
+<% unless @bug.screenshot.file.nil? %>
+<%= image_tag @bug.screenshot_url(:large)  %>
+<%end%>
+<br/>
+<%= link_to 'back' ,projects_url %>
+</div>

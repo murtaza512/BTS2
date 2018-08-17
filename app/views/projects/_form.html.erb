@@ -1,0 +1,78 @@
+
+
+<%= form_for @project do |f| %>
+
+   <% if @project.errors.any? %>
+
+    <div id="error_explanation">
+
+      <ul >
+          <% @project.errors.full_messages.each do |message| %>
+            <li class='text-danger'><%= message %></li>
+          <% end %>
+      </ul>
+
+    </div>
+
+  <% end %>
+
+
+
+
+  <div class="form-group row">
+        <%= f.label :title ,class:'offset-md-2 col-md-3 label-control ' %>
+
+        <%= f.text_field :title, autofocus: true,class:'col-md-6 form-control ' %>
+  </div>
+
+  <div class="form-group row">
+        <%= f.label :description ,class:'offset-md-2 col-md-3 label-control' %><br />
+        <%= f.text_field :description, autofocus: true, autocomplete: "off",class:'col-md-6 form-control' %>
+  </div>
+
+
+
+
+  <div class="form-group row">
+
+      <%= f.label "Add Users",class:'offset-md-2 col-md-3 label-control' %><br />
+
+      <%= f.collection_check_boxes :user_ids, User.where(user_type: 'developer'),
+         :id, :name do |b| %>
+            <div class="collection-check-box">
+                <%= b.check_box %>
+                <%= b.label %>
+            </div>
+
+           <% end %>
+
+   </div>
+
+
+
+
+   <div class="actions row">
+        <%= f.submit  class: 'btn btn-primary offset-md-2 ' %>
+   </div>
+
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

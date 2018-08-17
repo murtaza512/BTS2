@@ -1,0 +1,19 @@
+
+
+    <%= simple_form_for @bug do |f| %>
+      <div class=" col-sm-6">
+      <%= f.input :title  %>
+      <%= f.input :deadline %>
+      <%= f.input :screenshot %>
+
+
+      <%= f.input :types, collection: ['feature','bug'] ,include_blank: false%>
+      <%= f.input :status , collection: ['new', 'started', 'completed']  %>
+
+      <%= f.input :user_id, :as => :hidden%>
+      <%= f.input :project_id,:as => :hidden%>
+      <%= f.button :submit %>
+      </div>
+    <% end %>
+
+  <% console %>

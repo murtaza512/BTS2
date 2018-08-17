@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BTS</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+          <h1><a class="navbar-brand" href="#">BugZilla</a></h1>
+
+          <ul class="navbar-nav ml-auto">
+             <li class="nav-item">
+               <h3>
+                <% if user_signed_in? %>
+                  <%= link_to "Projects", projects_url ,class:'nav-link '%>
+                 <%end%>
+               </h3>
+              </li>
+            <li class="nav-item">
+               <h3>
+                 <% if !user_signed_in? %>
+                   <%= link_to "sign_up", new_user_registration_path ,class:'nav-link '%>
+                 <%end%>
+               </h3>
+            </li>
+            <li class="nav-item">
+            <h3>
+               <% if !user_signed_in? %>
+                <%= link_to "sign_in", new_user_session_path ,class:'nav-link '%>
+                <%end%>
+             </h3>
+            </li>
+            <li class="nav-item">
+               <h3>
+                <% if user_signed_in? %>
+                 <%= link_to "sign_out", destroy_user_session_path,class:'nav-link ' , method: :delete, data: { confirm:'Are you sure !?' }%>
+                 <%end%>
+                </h3>
+            </li>
+
+          </ul>
+      </nav>
+
+     <div class='container'>
+           <div class='row'>
+           <% flash.each do |name, message| %>
+             <% if name=='notice' %>
+                 <%name='success'%>
+             <%end%>
+             <% if name=='alert' %>
+                 <% name='danger'%>
+             <%end%>
+             <div class='offset-md-3 col-md-6  text-center  alert alert-<%= name %>'>
+               <%= message %>
+             </div>
+            <% end %>
+          </div>
+
+
+
+
+
+    <%= yield %>
+
+    </div>
+  </body>
+</html>

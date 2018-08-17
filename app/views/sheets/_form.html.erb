@@ -1,0 +1,41 @@
+
+
+<%= form_for @sheet do |f| %>
+
+  <div class="form-group row">
+
+      <%= f.label "Add Images",class:'offset-md-2 col-md-3 label-control' %><br />
+
+      <%= f.file_field :image, multiple: true %>
+
+
+   </div>
+
+
+
+
+   <div class="actions row">
+        <%= f.submit  class: 'btn btn-primary offset-md-2 ' %>
+   </div>
+
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
